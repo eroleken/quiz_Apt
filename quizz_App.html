@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Coğrafya Sınavı</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+   
+   
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        li{
+            list-style-type: none;
+            justify-content: space-between;
+            border: 2px gray solid;
+            border-radius: 5px;
+            cursor: pointer;
+            height: 40px;
+        }
+        #cardID{
+            width: 500px;
+            position: absolute;
+             
+        }
+        .passive{
+            opacity: 0;
+             transform: translate(-50%,-50%) scale(0.7) ;
+            transition:  all 1s ease; 
+        }
+        .active{
+            opacity: 1!important;
+            transform: scale(1) ;
+            transform: translate(0,0) ;
+            /* transition:  all 5s ease; */
+        } 
+
+        #next{           
+            transition: all 1s ease;
+        }
+        #altta{
+            position: absolute;
+            bottom: 150px;
+            right: 150px;
+        }
+        li:hover{
+            opacity: 0.6;
+        }
+        .correct{
+            background-color: yellowgreen!important;
+        }
+        
+        .incorrect{
+            background-color: brown!important;
+        }
+        i{
+            color: lightcyan;
+        }
+        
+        .butonum{
+            position: absolute;
+            top:50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .bos{
+            color:#fff;
+            border:none;
+            cursor:default;
+            
+        }
+        .gizlen{
+            opacity:0;
+            cursor:none;
+            transform: scale(0.3);
+        }
+        #sayac{
+            transition: all 1s;
+            border-radius: 10%;
+        }
+        #crown.active{
+            pointer-events: all;
+            opacity:1;
+        }
+        #crown{
+            opacity: 0;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            border: none;
+        }
+       
+        #ulList{
+            padding-right: 15px;
+        }
+
+        .disabled{
+            pointer-events: none;
+        }
+        
+        #zama{
+            /* width: 100px; */
+            height: 10px;
+            position: absolute;
+            background-color: orange;
+            bottom: 0;
+            left: 0;
+        }
+        #altta{
+            position: absolute;
+            bottom:-50px;
+            left: 0px;
+            width: 100%;
+        }
+       
+    </style>
+  </head>
+  <body class="d-flex justify-content-center align-items-center h-100 w-100">
+    
+    <div id="crown" class="card p-2">
+        <i class="fa fa-crown text-primary" style="font-size:250px"></i>
+        <!-- <div id="solYukaridaki" class="fw-bolder fs-3">Toplam 
+            <span id="toplamSoru"></span> sorudan
+              
+            <span id="dogru"></span> tanesini doğru cevapladınız.
+        </div> -->
+        <p id="tag" class="fw-bolder"></p>
+        <br>
+        <div>
+        <button class="btn btn-primary" onclick=tekrarla()>Tekrarla</button>
+        <button class="btn btn-primary" onclick=bitir()>Testi Bitir..</button>
+    </div>
+    </div>
+    <!-- Butonlar -->
+    <button class="btn btn-start btn-warning fw-bold btn-lg butonum" onclick=startVer() id="startButon">Start Quiz</button>
+
+    <div class="passive" id="cardID">
+        <div class="card d-flex flex-column" >
+            <div class="card-header fw-bold d-flex flex-row justify-content-between">
+                <h2 class="title">Quiz App</h2>
+                
+                <h5 class="my-auto">Kalan Süre: <span id="zaman"></span></h5> 
+                
+            </div>
+            <div id="card-body">
+                <p class="fw-bold ms-4 mt-2" id="soruMetni"></p>
+                 <ul class="list-style-items" id="ulList"> 
+
+                    <!-- <li class="list-style-item text-underline-none d-flex my-2 p-1 bg-light" >
+                        <span id="a">a:"leylek"</span>
+                        <i class="fa p-2"></i>
+                    </li>
+                     -->
+                </ul> 
+            </div>
+            <canvas id="zama"></canvas>
+            <div class="d-flex flex-row justify-content-around" id="altta">
+                <p id="sayac" class="my-auto gizlen bg-warning px-3 border-radius fw-bold">
+                    <span id="no"></span>
+                    <span id="/">/</span>
+                    <span id="adet"></span>
+                   
+                </p>
+                <button class="btn btn-sm opacity-0 gizlen fw-bold bg-warning px-3 py-0" id="next" onclick=next()>Next</button>
+        
+            </div>
+        </div>
+        
+    </div>
+    
+    
+    <div id="sinavBitti" class="d-none">
+        
+    </div>
+
+
+
+    <script src="quizz_ui.js"></script>
+    <script src="quizz.js"></script>
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  </body>
+</html>
